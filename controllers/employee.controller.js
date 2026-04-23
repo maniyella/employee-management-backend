@@ -1,7 +1,7 @@
 const { getDb } = require('../db');
-const db = getDb();
 
 exports.getAllEmployees =  async (req, res) => {
+    const db = getDb();
     console.log("In CONTROLLER")
     try {
         console.log("try block")
@@ -15,6 +15,7 @@ exports.getAllEmployees =  async (req, res) => {
 };
 
 exports.addEmployee = async (req, res) => {
+    const db = getDb();
     try {
         const result = await db.collection('employees').insertOne(req.body);
         res.json({
