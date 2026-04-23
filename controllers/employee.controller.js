@@ -1,7 +1,7 @@
 exports.getAllEmployees =  async (req, res) => {
     console.log("In fun")
     try {
-        console.log("try")
+        console.log("try block")
         const data = await db.collection('employees').find().toArray();
         console.log("data", data)
         res.json(data);
