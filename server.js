@@ -7,11 +7,14 @@ dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 const app = express();
 
+let db;
+
 const client = new MongoClient(process.env.MONGO_URI);
 async function connectDB() {
   try {
     await client.connect();
     db = client.db(process.env.DB_NAME);
+    module.exports.db = db;
     console.log("process.env",process.env)
     console.log("process.env DB_NAME",process.env.DB_NAME)
     console.log("MongoDB Atlas connected");
@@ -20,7 +23,7 @@ async function connectDB() {
   }
 }
 
-connectDB();
+module.exports = { db };
 
 app.use(cors());
 app.use(express.json());
@@ -38,6 +41,11 @@ app.get('/', (req, res) => {
 console.log("process.env.PORT", process.env.PORT)
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+}).catch(err => {
+  console.error("Failed to connect to database:", err);
+  process.exit(1);
 });
