@@ -5,6 +5,8 @@ require('dotenv').config();
 const dns = require("dns");
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
+console.log("=== SERVER STARTING - WAITING FOR MONGODB ===");
+
 const app = express();
 
 let db;
