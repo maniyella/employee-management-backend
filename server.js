@@ -24,7 +24,7 @@ app.use(cors());
 app.use(express.json());
 
 const employeeRoutes = require("./routes/employee.routes")
-
+console.group("before route")
 app.use('/getemployees', employeeRoutes)
 app.use('/addemployee', employeeRoutes)
 

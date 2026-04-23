@@ -1,8 +1,12 @@
 exports.getAllEmployees =  async (req, res) => {
+    console.log("In fun")
     try {
+        console.log("try")
         const data = await db.collection('employees').find().toArray();
+        console.log("data", data)
         res.json(data);
     } catch (err) {
+        cosole.log("catch")
         res.status(500).json(err);
     }
 };
