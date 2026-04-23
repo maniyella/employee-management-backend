@@ -40,13 +40,16 @@ console.log("process.env.PORT", process.env.PORT)
 const PORT = process.env.PORT || 8080;
 
 // Start server AFTER MongoDB connects
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-  });
-}).catch(err => {
-  console.error("Failed to connect to MongoDB:", err);
-  process.exit(1);
-});
+(async () => {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`Server running on http://localhost:${PORT}`);
+    });
+  } catch (err) {
+    console.error("Failed to connect to MongoDB:", err);
+    process.exit(1);
+  }
+})();
 
 module.exports = { db };
