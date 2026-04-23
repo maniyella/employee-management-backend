@@ -7,6 +7,8 @@ dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 const app = express();
 
+let db;
+
 const client = new MongoClient(process.env.MONGO_URI);
 async function connectDB() {
   try {
@@ -19,8 +21,6 @@ async function connectDB() {
     console.log("Error:", err);
   }
 }
-
-connectDB();
 
 app.use(cors());
 app.use(express.json());
@@ -38,6 +38,14 @@ app.get('/', (req, res) => {
 console.log("process.env.PORT", process.env.PORT)
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+}).catch(err => {
+  console.error("Failed to connect to database:", err);
+  process.exit(1);
 });
+
+module.exports = { db: () => db };
