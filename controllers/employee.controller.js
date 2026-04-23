@@ -1,5 +1,8 @@
+const { getDb } = require('../db');
+const db = getDb();
+
 exports.getAllEmployees =  async (req, res) => {
-    console.log("In fun")
+    console.log("In CONTROLLER")
     try {
         console.log("try block")
         const data = await db.collection('employees').find().toArray();
