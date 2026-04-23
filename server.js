@@ -12,6 +12,8 @@ async function connectDB() {
   try {
     await client.connect();
     db = client.db(process.env.DB_NAME);
+    console.log("process.env",process.env)
+    console.log("process.env DB_NAME",process.env.DB_NAME)
     console.log("MongoDB Atlas connected");
   } catch (err) {
     console.log("Error:", err);
@@ -28,9 +30,12 @@ console.group("before route")
 app.use('/getemployees', employeeRoutes)
 app.use('/addemployee', employeeRoutes)
 
+console.log("before backend")
 app.get('/', (req, res) => {
   res.send('Backend running 🚀');
 }); 
+
+console.log("process.env.PORT", process.env.PORT)
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
