@@ -2,7 +2,6 @@ exports.getAllEmployees =  async (req, res) => {
     console.log("In fun")
     try {
         console.log("try block")
-        let db = client.db(process.env.DB_NAME);
         const data = await db.collection('employees').find().toArray();
         console.log("data", data)
         res.json(data);

@@ -7,6 +7,7 @@ dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 const app = express();
 
+let db;
 const client = new MongoClient(process.env.MONGO_URI);
 async function connectDB() {
   try {
@@ -21,6 +22,7 @@ async function connectDB() {
 }
 
 connectDB();
+module.exports = { db };
 
 app.use(cors());
 app.use(express.json());
