@@ -3,6 +3,7 @@ const { getDb } = require('../db');
 exports.getAllEmployees =  async (req, res) => {
     const db = getDb();
     console.log("In CONTROLLER")
+    console.log("db", db)
     try {
         console.log("try block")
         const data = await db.collection('employees').find().toArray();
