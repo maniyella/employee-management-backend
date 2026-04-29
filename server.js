@@ -25,7 +25,6 @@ async function connectDB() {
 }
 
 
-console.log("before backend")
 app.get('/', (req, res) => {
   res.send('Backend running 🚀');
 });
